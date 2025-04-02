@@ -1,0 +1,87 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #1d2b64, #f8cdda);
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    width: 350px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.btn-submit, .btn-voltar {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background-color: #ff1744;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.btn-submit:hover,
+.btn-voltar:hover {
+    background-color: #c51162;
+}
+
+.flashes {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.flashes li.success {
+    background-color: #4caf50;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.flashes li.danger {
+    background-color: #d50000;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.flashes li.info {
+    background-color: #0288d1;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    margin-bottom: 10px;
+}

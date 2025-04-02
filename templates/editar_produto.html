@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Produto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastrar_produto.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/editar_produto.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>Editando: {{ produto.Nome_produto }}</h2>
+
+            <!-- Mensagens Flash -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST">
+                {{ form.hidden_tag() }}
+
+                <div>
+                    {{ form.nome.label }}<br>
+                    {{ form.nome(class="form-control") }}
+                </div>
+                <br>
+                <div>
+                    {{ form.quantidade.label }}<br>
+                    {{ form.quantidade(class="form-control") }}
+                </div>
+                <br>
+                <div>
+                    {{ form.minimo.label }}<br>
+                    {{ form.minimo(class="form-control") }}
+                </div>
+                <br>
+                <div>
+                    <button type="submit" class="btn-logout">Salvar</button>
+                </div>
+            </form>
+
+            <div class="actions">
+                <a href="{{ url_for('dashboard') }}" class="btn-logout">Voltar</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

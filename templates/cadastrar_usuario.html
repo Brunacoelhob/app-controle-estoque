@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Usuário</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastrar_usuario.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Cadastrar Novo Usuário</h2>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.nome.label }}<br>
+                {{ form.nome(size=32, class_="form-control") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.email.label }}<br>
+                {{ form.email(size=32, class_="form-control") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.senha.label }}<br>
+                {{ form.senha(size=32, class_="form-control") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.perfil.label }}<br>
+                {{ form.perfil(class_="form-control") }}
+            </div>
+
+            <button type="submit" class="btn-submit">Cadastrar</button>
+        </form>
+
+        <a href="{{ url_for('dashboard') }}">Voltar</a>
+    </div>
+</body>
+</html>

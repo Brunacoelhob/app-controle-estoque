@@ -1,0 +1,339 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #1d2b64, #f8cdda);
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.avatar-wrapper {
+    position: relative;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ffffff;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.avatar-placeholder {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #888;
+    border: 3px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+}
+
+.input-foto {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #eee;
+    background: none;
+    border: 1px solid #999;
+    padding: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: background 0.3s;
+}
+
+.input-foto:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-editar-foto {
+    margin-top: 8px;
+    padding: 6px 12px;
+    background: linear-gradient(to right, #4b6cb7, #182848);
+    color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.3s ease;
+    display: inline-block;
+}
+
+.btn-editar-foto:hover {
+    background: linear-gradient(to right, #3e4a91, #0f1b35);
+}
+
+
+.user-info h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.user-info span {
+    font-size: 14px;
+    color: #ccc;
+    text-transform: capitalize;
+}
+
+.btn-logout {
+    margin-top: 30px;
+    background-color: #ff1744;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-logout:hover {
+    background-color: #c51162;
+}
+
+/* Conteúdo principal */
+.main-content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Botões */
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 15px;
+    background-color: white;
+    color: #000;
+    border-radius: 6px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.btn-admin {
+    background: linear-gradient(145deg, #2d2d8f, #5f4b8b);
+    color: #fff;
+    padding: 10px 18px;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-admin:hover {
+    transform: scale(1.05);
+    background: linear-gradient(to right, #6a3093, #a044ff);
+    color: white;
+    border-color: #fff;
+}
+
+/* Flash Messages */
+.flashes {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 10px;
+    animation: fadeOut 4s ease-out forwards;
+}
+
+.flashes li {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.flashes li.success {
+    background: linear-gradient(to right, #5f4b8b, #a45ee5);
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: 6px;
+    width: fit-content;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.flashes li.danger {
+    background-color: #440000;
+    color: #ffaaaa;
+}
+
+.flashes li.info {
+    background-color: #003366;
+    color: #33ccff;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+}
+
+/* Título + botões juntos */
+.produtos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Tabela */
+.produtos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.produtos th,
+.produtos td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #aaa;
+}
+
+.produtos th {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: bold;
+}
+
+.estoque-baixo {
+    background-color: rgba(255, 0, 0, 0.5);
+    color: white;
+    font-weight: bold;
+}
+
+.btn-editar,
+.btn-excluir {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    text-decoration: none;
+    margin: 0 2px;
+}
+
+.btn-editar {
+    background-color: #00c853;
+    color: white;
+}
+
+.btn-excluir {
+    background-color: #d50000;
+    color: white;
+}
+
+.btn-editar:hover {
+    background-color: #00e676;
+}
+
+.btn-excluir:hover {
+    background-color: #ff1744;
+}
+
+/* Alerta de Estoque */
+.estoque-alerta {
+    margin-top: 15px;
+    padding: 12px;
+    border: 2px solid red;
+    border-radius: 8px;
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Responsividade básica */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .produtos th,
+    .produtos td {
+        font-size: 0.9em;
+    }
+
+    .produtos-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}

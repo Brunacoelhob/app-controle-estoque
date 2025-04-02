@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Controle de Estoque</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>🔐 Login</h2>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            <label for="email">📧 {{ form.email.label }}</label>
+            {{ form.email(class_="input-field") }}
+
+            <label for="senha">🔑 {{ form.senha.label }}</label>
+            {{ form.senha(class_="input-field") }}
+
+            <button type="submit">Entrar</button>
+        </form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="error-messages">
+                {% for category, message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+
+</html>

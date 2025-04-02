@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Produto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastrar_produto.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Cadastrar Produto</h2>
+
+        <!-- ✅ Mensagens Flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <!-- ✅ Formulário -->
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.nome.label }}
+                {{ form.nome(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.quantidade.label }}
+                {{ form.quantidade(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.minimo.label }}
+                {{ form.minimo(class="form-control") }}
+            </div>
+
+            <button type="submit" class="btn-submit">Cadastrar</button>
+        </form>
+
+        <a href="{{ url_for('dashboard') }}" class="btn-voltar">Voltar</a>
+    </div>
+</body>
+</html>

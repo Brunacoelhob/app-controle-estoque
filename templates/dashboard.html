@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Controle de Estoque</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+
+        <!-- Sidebar lateral -->
+        <div class="sidebar">
+            <div class="avatar-wrapper">
+                {% if usuario.foto_url %}
+                    <img src="{{ url_for('static', filename='imagens/' + usuario.foto_url) }}" class="avatar" alt="Avatar">
+                {% else %}
+                    <div class="avatar-placeholder"></div>
+                {% endif %}
+                <form method="POST" action="{{ url_for('editar_foto') }}" enctype="multipart/form-data">
+                    <label for="foto-upload" class="btn-editar-foto">Editar Foto</label>
+                    <input type="file" id="foto-upload" name="foto" accept="image/*" style="display: none;" onchange="this.form.submit()">
+                </form>                
+            </div>
+            <div class="user-info">
+                <h2>{{ usuario.Nome_usuario }}</h2>
+                <span>{{ usuario.Perfil_usuario|capitalize }}</span>
+            </div>
+            <a href="{{ url_for('logout') }}" class="btn-logout">Sair</a>
+        </div>
+
+
+        <!-- Conteúdo principal -->
+        <div class="main-content">
+
+            <!-- Cabeçalho -->
+            <div class="header">
+                <h1>Olá, {{ usuario.Nome_usuario }}! Seja bem-vindo</h1>
+            </div>
+
+            <!-- Mensagens Flash -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="flashes">
+                        {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+
+            <!-- Seção da tabela de produtos -->
+           <!-- Seção de Produtos -->
+            <div class="produtos-header">
+                <h2>Lista de Produtos</h2>
+                {% if usuario.Perfil_usuario == 'admin' %}
+                    <div class="actions">
+                        <a href="{{ url_for('cadastrar_usuario') }}" class="btn btn-admin">Cadastrar Usuário</a>
+                        <a href="{{ url_for('cadastrar_produto') }}" class="btn btn-admin">Cadastrar Produto</a>
+                    </div>
+                {% endif %}
+            </div>
+
+            <table class="produtos">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th>Mínimo</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produto in produtos %}
+                        <tr class="{% if produto.Quantidade_produto < produto.Minimo_produto %}estoque-baixo{% endif %}">
+                            <td>{{ produto.id_produto }}</td>
+                            <td>{{ produto.Nome_produto }}</td>
+                            <td>{{ produto.Quantidade_produto }}</td>
+                            <td>{{ produto.Minimo_produto }}</td>
+                            <td>
+                                {% if usuario.Perfil_usuario == 'admin' %}
+                                    <a href="{{ url_for('editar_produto', produto_id=produto.id_produto) }}" class="btn-editar">Editar</a>
+                                    <a href="{{ url_for('excluir_produto', produto_id=produto.id_produto) }}" class="btn-excluir">Excluir</a>
+                                {% else %}
+                                    <span>-</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">Nenhum produto cadastrado.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Alerta de Estoque -->
+            <div class="estoque-alerta">
+                <strong>Alerta do Estoque:</strong> Produtos destacados em vermelho estão abaixo do mínimo.
+            </div>
+        </div>
+    </div>
+      <!-- Script para ocultar flash messages -->
+        <script>
+            setTimeout(() => {
+                const flash = document.querySelector(".flashes");
+                if (flash) flash.style.display = "none";
+            }, 4000);
+    </script>
+</body>
+</html>
