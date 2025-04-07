@@ -31,12 +31,16 @@ class Movimentacao(db.Model):
     __tablename__ = 'TBL_MOVIMENTACAO'
 
     id_movimentacao = db.Column(db.Integer, primary_key=True)
-    Tipo_movimentacao = db.Column(db.String(100), nullable=False)
-    Quantidade = db.Column(db.Integer, nullable=False)
-    Data = db.Column(db.Date, nullable=False)
+    tipo_movimentacao = db.Column(db.String(100), nullable=False)
+    quantidade = db.Column(db.Integer, nullable=False)
+    data = db.Column(db.Date, nullable=False)
 
     TBL_USUARIO_id = db.Column(db.Integer, db.ForeignKey('TBL_USUARIO.id_usuario'))
     TBL_PRODUTO_id_produto = db.Column(db.Integer, db.ForeignKey('TBL_PRODUTO.id_produto'))
 
     usuario = db.relationship('Usuario', backref='movimentacoes')
     produto = db.relationship('Produto', backref='movimentacoes')
+
+def __repr__(self):
+    return f'<Movimentacao {self.id_movimentacao} - {self.tipo_movimentacao}>'
+

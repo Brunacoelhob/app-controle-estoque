@@ -1,70 +1,102 @@
+/* login.css */
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
     margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+.title-login {
+    width: 100%;
+    text-align: center;
+    color: #c2183b;
+    font-weight: 800;
+    font-size: 28px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .login-container {
-    background-color: #1c1c1c;
-    padding: 30px 40px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-    width: 350px;
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 420px;
     text-align: center;
 }
 
-h2 {
-    margin-bottom: 20px;
-    color: #00ffff;
+.login-container h2 {
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: #6b1e5e;
 }
 
 label {
-    display: block;
-    text-align: left;
-    margin: 10px 0 5px;
-    color: #ccc;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin: 15px 0 5px;
+    color: #6b1e5e;
+    font-size: 14px;
+}
+
+label::before {
+    content: attr(data-icon);
+    margin-right: 8px;
+    font-size: 16px;
 }
 
 .input-field {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #2a2a2a;
-    color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
 }
 
-.input-field:focus {
-    outline: none;
-    border: 1px solid #00ffff;
-}
-
-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #00ffff;
+button[type="submit"] {
+    margin-top: 25px;
+    padding: 10px 24px;
+    background-color: #f9264b;
+    color: white;
     border: none;
-    border-radius: 5px;
-    color: #1c1c1c;
+    border-radius: 6px;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s ease;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-button:hover {
-    background-color: #00cccc;
+button[type="submit"]:hover {
+    background-color: #c2183b;
 }
 
 .error-messages {
     list-style: none;
     padding: 0;
-    margin-top: 15px;
-    color: #ff4d4d;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.error-messages li {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-weight: bold;
     font-size: 14px;
 }

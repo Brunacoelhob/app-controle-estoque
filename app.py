@@ -5,8 +5,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 import os
 
-from forms import LoginForm, ProdutoForm, UsuarioForm
+from forms import LoginForm, ProdutoForm, UsuarioForm, MovimentacaoForm
 from models import db, Usuario, Produto
+from models import Movimentacao
 
 # Criação da aplicação Flask
 app = Flask(__name__)
@@ -79,9 +80,6 @@ def cadastrar_produto():
 @app.route('/excluir/<int:produto_id>')
 @login_required
 def excluir_produto(produto_id):
-    if current_user.Perfil_usuario != 'admin':
-        flash('Você não tem permissão para excluir produtos.', 'danger')
-        return redirect(url_for('dashboard'))
 
     produto = Produto.query.get_or_404(produto_id)
     db.session.delete(produto)
@@ -93,9 +91,6 @@ def excluir_produto(produto_id):
 @app.route('/editar/<int:produto_id>', methods=['GET', 'POST'])
 @login_required
 def editar_produto(produto_id):
-    if current_user.Perfil_usuario != 'admin':
-        flash('Você não tem permissão para editar produtos.', 'danger')
-        return redirect(url_for('dashboard'))
 
     produto = Produto.query.get_or_404(produto_id)
     form = ProdutoForm(obj=produto)
@@ -162,9 +157,46 @@ def editar_foto():
 
     return redirect(url_for('dashboard'))
 
+@app.route('/movimentar-estoque', methods=['GET', 'POST'])
+@login_required
+def movimentar_estoque():
+    form = MovimentacaoForm()
+    form.produto_id.choices = [(p.id_produto, p.Nome_produto) for p in Produto.query.all()]
+
+    if form.validate_on_submit():
+        produto = Produto.query.get(form.produto_id.data)
+        tipo = form.tipo_movimentacao.data
+        quantidade = form.quantidade.data
+        data_mov = form.data.data
+
+        if tipo == 'entrada':
+            produto.Quantidade_produto += quantidade
+        elif tipo == 'saida':
+            if produto.Quantidade_produto < quantidade:
+                flash('Estoque insuficiente para saída.', 'danger')
+                return redirect(url_for('movimentar_estoque'))
+            produto.Quantidade_produto -= quantidade
+
+        movimentacao = Movimentacao(
+            tipo_movimentacao=tipo,
+            quantidade=quantidade,
+            data=data_mov,
+            TBL_USUARIO_id=current_user.id_usuario,
+            TBL_PRODUTO_id_produto=produto.id_produto
+        )
+
+        db.session.add(movimentacao)
+        db.session.commit()
+        flash('Movimentação registrada com sucesso!', 'success')
+        return redirect(url_for('dashboard'))
+    
+    return render_template('movimentar_estoque.html', form=form)
+
+@app.route('/painel-estoque')
+@login_required
+def painel_estoque():
+    return render_template('painel_estoque.html', usuario=current_user)
 
 # Inicia o servidor
 if __name__ == '__main__':
     app.run(debug=True)
-
-

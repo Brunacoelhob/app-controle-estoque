@@ -5,12 +5,13 @@
     <title>Cadastrar Produto</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastrar_produto.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/formulario.css') }}">
 </head>
 <body>
     <div class="form-container">
         <h2>Cadastrar Produto</h2>
 
-        <!-- ✅ Mensagens Flash -->
+        <!-- Mensagens Flash -->
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 <ul class="flashes">
@@ -21,29 +22,29 @@
             {% endif %}
         {% endwith %}
 
-        <!-- ✅ Formulário -->
+        <!-- Formulário -->
         <form method="POST">
             {{ form.hidden_tag() }}
 
             <div class="form-group">
                 {{ form.nome.label }}
-                {{ form.nome(class="form-control") }}
+                {{ form.nome(class_="form-control") }}
             </div>
 
             <div class="form-group">
                 {{ form.quantidade.label }}
-                {{ form.quantidade(class="form-control") }}
+                {{ form.quantidade(class_="form-control") }}
             </div>
 
             <div class="form-group">
                 {{ form.minimo.label }}
-                {{ form.minimo(class="form-control") }}
+                {{ form.minimo(class_="form-control") }}
             </div>
 
-            <button type="submit" class="btn-submit">Cadastrar</button>
+            <button type="submit" class="btn-cadastrar">Cadastrar</button>
         </form>
 
-        <a href="{{ url_for('dashboard') }}" class="btn-voltar">Voltar</a>
+        <a href="{{ url_for('dashboard') }}" class="btn-voltar_produto">Voltar</a>
     </div>
 </body>
 </html>

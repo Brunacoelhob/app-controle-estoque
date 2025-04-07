@@ -7,12 +7,11 @@
 </head>
 <body>
     <div class="dashboard-container">
-
         <!-- Sidebar lateral -->
         <div class="sidebar">
             <div class="avatar-wrapper">
                 {% if usuario.foto_url %}
-                    <img src="{{ url_for('static', filename='imagens/' + usuario.foto_url) }}" class="avatar" alt="Avatar">
+                    <img src="{{ url_for('static', filename='imagens/' + usuario.foto_url) }}" class="avatar" alt="Foto de perfil">
                 {% else %}
                     <div class="avatar-placeholder"></div>
                 {% endif %}
@@ -22,16 +21,13 @@
                 </form>                
             </div>
             <div class="user-info">
-                <h2>{{ usuario.Nome_usuario }}</h2>
-                <span>{{ usuario.Perfil_usuario|capitalize }}</span>
+                <h2>{{ usuario.Nome_usuario }} <span class="perfil">({{ usuario.Perfil_usuario | capitalize }})</span></h2>
             </div>
-            <a href="{{ url_for('logout') }}" class="btn-logout">Sair</a>
+            <a href="{{ url_for('logout') }}" class="btn-logout"><strong>Sair</strong></a>
         </div>
-
 
         <!-- Conteúdo principal -->
         <div class="main-content">
-
             <!-- Cabeçalho -->
             <div class="header">
                 <h1>Olá, {{ usuario.Nome_usuario }}! Seja bem-vindo</h1>
@@ -48,16 +44,19 @@
                 {% endif %}
             {% endwith %}
 
-            <!-- Seção da tabela de produtos -->
-           <!-- Seção de Produtos -->
-            <div class="produtos-header">
-                <h2>Lista de Produtos</h2>
+            <!-- Botões de Ação -->
+            <div class="actions" style="display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 20px;">
                 {% if usuario.Perfil_usuario == 'admin' %}
-                    <div class="actions">
-                        <a href="{{ url_for('cadastrar_usuario') }}" class="btn btn-admin">Cadastrar Usuário</a>
-                        <a href="{{ url_for('cadastrar_produto') }}" class="btn btn-admin">Cadastrar Produto</a>
-                    </div>
+                    <a href="{{ url_for('cadastrar_usuario') }}" class="btn btn-admin">👤 Cadastrar Usuário</a>
                 {% endif %}
+                <a href="{{ url_for('cadastrar_produto') }}" class="btn btn-admin">📦 Cadastrar Produto</a>
+                <a href="{{ url_for('movimentar_estoque') }}" class="btn btn-admin">🔁 Movimentar Estoque</a>
+                <a href="{{ url_for('painel_estoque') }}" class="btn btn-admin">📊 Painel de Estoque</a>
+            </div>
+
+            <!-- Tabela de Produtos -->
+            <div class="produtos-header">
+                <h2 class="titulo-produtos">LISTA DE PRODUTOS</h2>
             </div>
 
             <table class="produtos">
@@ -78,12 +77,8 @@
                             <td>{{ produto.Quantidade_produto }}</td>
                             <td>{{ produto.Minimo_produto }}</td>
                             <td>
-                                {% if usuario.Perfil_usuario == 'admin' %}
-                                    <a href="{{ url_for('editar_produto', produto_id=produto.id_produto) }}" class="btn-editar">Editar</a>
-                                    <a href="{{ url_for('excluir_produto', produto_id=produto.id_produto) }}" class="btn-excluir">Excluir</a>
-                                {% else %}
-                                    <span>-</span>
-                                {% endif %}
+                                <a href="{{ url_for('editar_produto', produto_id=produto.id_produto) }}" class="btn-editar">Editar</a>
+                                <a href="{{ url_for('excluir_produto', produto_id=produto.id_produto) }}" class="btn-excluir">Excluir</a>
                             </td>
                         </tr>
                     {% else %}
@@ -100,12 +95,13 @@
             </div>
         </div>
     </div>
-      <!-- Script para ocultar flash messages -->
-        <script>
-            setTimeout(() => {
-                const flash = document.querySelector(".flashes");
-                if (flash) flash.style.display = "none";
-            }, 4000);
+
+    <!-- Script para ocultar flash messages -->
+    <script>
+        setTimeout(() => {
+            const flash = document.querySelector(".flashes");
+            if (flash) flash.style.display = "none";
+        }, 4000);
     </script>
 </body>
 </html>

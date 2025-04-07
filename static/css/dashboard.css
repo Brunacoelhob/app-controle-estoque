@@ -1,3 +1,4 @@
+
 /* Reset básico */
 * {
     margin: 0;
@@ -7,7 +8,7 @@
 
 body {
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to right, #1d2b64, #f8cdda);
+    background: #2C3E50;
     color: white;
     height: 100vh;
     display: flex;
@@ -35,70 +36,28 @@ body {
 .avatar-wrapper {
     position: relative;
     margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .avatar {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #ffffff;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    border: 3px solid #ccc;
 }
 
 .avatar-placeholder {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    background-color: #888;
-    border: 3px dashed #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 14px;
-    text-align: center;
+    background-color: #d1d1ff;
 }
 
 .input-foto {
-    margin-top: 10px;
-    font-size: 12px;
-    color: #eee;
-    background: none;
-    border: 1px solid #999;
-    padding: 5px;
-    border-radius: 6px;
-    cursor: pointer;
-    width: 100%;
-    text-align: center;
-    transition: background 0.3s;
-}
-
-.input-foto:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.btn-editar-foto {
     margin-top: 8px;
-    padding: 6px 12px;
-    background: linear-gradient(to right, #4b6cb7, #182848);
+    font-size: 12px;
     color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 13px;
-    transition: background 0.3s ease;
-    display: inline-block;
 }
-
-.btn-editar-foto:hover {
-    background: linear-gradient(to right, #3e4a91, #0f1b35);
-}
-
 
 .user-info h2 {
     font-size: 20px;
@@ -138,7 +97,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .header h1 {
@@ -146,7 +105,6 @@ body {
     font-weight: bold;
 }
 
-/* Botões */
 .actions {
     display: flex;
     gap: 10px;
@@ -165,71 +123,17 @@ body {
 }
 
 .btn-admin {
-    background: linear-gradient(145deg, #2d2d8f, #5f4b8b);
-    color: #fff;
-    padding: 10px 18px;
-    border: 2px solid #fff;
+    background: linear-gradient(to right, #8098b1, #2C3E50);
+    color: white;
+    padding: 10px 16px;
     border-radius: 8px;
     font-weight: bold;
-    margin-left: 10px;
-    cursor: pointer;
-    transition: transform 0.2s;
+    text-decoration: none;
+    transition: 0.3s ease;
 }
 
 .btn-admin:hover {
-    transform: scale(1.05);
-    background: linear-gradient(to right, #6a3093, #a044ff);
-    color: white;
-    border-color: #fff;
-}
-
-/* Flash Messages */
-.flashes {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 10px;
-    animation: fadeOut 4s ease-out forwards;
-}
-
-.flashes li {
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    font-size: 0.9rem;
-}
-
-.flashes li.success {
-    background: linear-gradient(to right, #5f4b8b, #a45ee5);
-    color: #ffffff;
-    padding: 8px 14px;
-    border-radius: 6px;
-    width: fit-content;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-}
-
-.flashes li.danger {
-    background-color: #440000;
-    color: #ffaaaa;
-}
-
-.flashes li.info {
-    background-color: #003366;
-    color: #33ccff;
-}
-
-@keyframes fadeOut {
-    0% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { opacity: 0; display: none; }
-}
-
-/* Título + botões juntos */
-.produtos-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+    opacity: 0.9;
 }
 
 /* Tabela */
@@ -286,7 +190,7 @@ body {
     background-color: #ff1744;
 }
 
-/* Alerta de Estoque */
+/* Alerta */
 .estoque-alerta {
     margin-top: 15px;
     padding: 12px;
@@ -295,6 +199,46 @@ body {
     background-color: rgba(255, 0, 0, 0.1);
     color: #fff;
     font-weight: 500;
+}
+
+/* Flash messages */
+.flashes {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 10px;
+    animation: fadeOut 4s ease-out forwards;
+}
+
+.flashes li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+}
+
+.flashes li.success {
+    background: linear-gradient(to right, #2C3E50, #8098b1);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 6px;
+    width: fit-content;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.flashes li.danger {
+    background-color: #440000;
+    color: #ffaaaa;
+}
+
+.flashes li.info {
+    background-color: #003366;
+    color: #33ccff;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; display: none; }
 }
 
 /* Responsividade básica */
@@ -329,11 +273,5 @@ body {
     .produtos th,
     .produtos td {
         font-size: 0.9em;
-    }
-
-    .produtos-header {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
     }
 }

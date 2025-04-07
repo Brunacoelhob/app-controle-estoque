@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel de Estoque</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/painel_estoque.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="painel-container">
+        <h1 class="titulo">Painel Gerencial de Estoque</h1>
+
+        <!-- Blocos de Informações -->
+        <div class="painel-grid">
+            <div class="info-box">Total Vendido<br><span>R$ 12.500</span></div>
+            <div class="info-box">Produtos no Estoque<br><span>134</span></div>
+            <div class="info-box">Lucro Estimado<br><span>R$ 3.200</span></div>
+            <div class="info-box">Perdas<br><span>R$ 800</span></div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="graficos-grid">
+            <div class="grafico">
+                <h3>Movimentação de Vendas</h3>
+                <canvas id="graficoColunas"></canvas>
+            </div>
+
+            <div class="grafico">
+                <h3>Produtos em Falta</h3>
+                <canvas id="graficoPizza"></canvas>
+            </div>
+
+            <div class="grafico">
+                <h3>Porcentagem de Vendas</h3>
+                <canvas id="graficoLinhas"></canvas>
+            </div>
+        </div>
+
+        <!-- Tabela e Gráfico de Funcionários -->
+        <div class="grafico-colaboradores">
+            <h2>Relatório de Vendedores</h2>
+            <table class="tabela">
+                <thead>
+                    <tr>
+                        <th>Vendedor</th>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th>Vendas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Bruna</td><td>Mouse</td><td>40</td><td>R$ 1.200</td></tr>
+                    <tr><td>Caio</td><td>Teclado</td><td>25</td><td>R$ 2.100</td></tr>
+                    <tr><td>João</td><td>Monitor</td><td>15</td><td>R$ 3.000</td></tr>
+                </tbody>
+            </table>
+
+            <div class="grafico">
+                <canvas id="graficoColab"></canvas>
+            </div>
+        </div>
+
+        <!-- Botão Voltar -->
+        <div class="voltar">
+            <a href="{{ url_for('dashboard') }}" class="btn-voltar">↩ Voltar</a>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/painel_estoque.js') }}"></script>
+</body>
+</html>

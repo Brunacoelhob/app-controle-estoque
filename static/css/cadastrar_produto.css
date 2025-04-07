@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to right, #1d2b64, #f8cdda);
+    background: #2C3E50;
     color: white;
     height: 100vh;
     display: flex;
@@ -35,7 +35,26 @@ h2 {
     font-size: 14px;
 }
 
-.btn-submit, .btn-voltar {
+.btn-cadastrar {
+    width: 100%;
+    background-color: #27c032;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: 0.3s;
+    text-align: center;
+    display: block;
+}
+
+.btn-cadastrar:hover {
+    background-color: #266628f5;
+}
+
+.btn-submit, .btn-voltar_produto {
     width: 100%;
     padding: 10px;
     margin-top: 15px;
@@ -52,8 +71,8 @@ h2 {
 }
 
 .btn-submit:hover,
-.btn-voltar:hover {
-    background-color: #c51162;
+.btn-voltar_produto:hover {
+    background-color: #b81233;
 }
 
 .flashes {
