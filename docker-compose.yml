@@ -1,0 +1,40 @@
+# MySQL + aplicação (gunicorn).
+#   cp .env.example .env              # defina SECRET_KEY e DB_PASSWORD
+#   docker compose up -d --build --wait
+#   docker compose exec app flask --app wsgi criar-admin     # cria o primeiro administrador
+#   http://localhost:8000
+services:
+  db:
+    image: mysql:8.4
+    restart: unless-stopped
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:?defina DB_PASSWORD no .env}
+      MYSQL_DATABASE: estoque
+    volumes:
+      - dados_banco:/var/lib/mysql
+    healthcheck:
+      test: ['CMD-SHELL', 'mysqladmin ping -h 127.0.0.1 -uroot -p"$$MYSQL_ROOT_PASSWORD" --silent']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    # Sem "ports": o banco não é acessível de fora do Docker.
+
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      SECRET_KEY: ${SECRET_KEY:?defina SECRET_KEY no .env}
+      DATABASE_URL: mysql+pymysql://root:${DB_PASSWORD}@db:3306/estoque?charset=utf8mb4
+      SESSION_COOKIE_SECURE: ${SESSION_COOKIE_SECURE:-0}
+    volumes:
+      - uploads:/data/uploads
+    ports:
+      - '127.0.0.1:8000:8000'
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  dados_banco:
+  uploads:

@@ -11,19 +11,23 @@
         <div class="sidebar">
             <div class="avatar-wrapper">
                 {% if usuario.foto_url %}
-                    <img src="{{ url_for('static', filename='imagens/' + usuario.foto_url) }}" class="avatar" alt="Foto de perfil">
+                    <img src="{{ url_for('foto', nome=usuario.foto_url) }}" class="avatar" alt="Foto de perfil">
                 {% else %}
                     <div class="avatar-placeholder"></div>
                 {% endif %}
                 <form method="POST" action="{{ url_for('editar_foto') }}" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <label for="foto-upload" class="btn-editar-foto">Editar Foto</label>
-                    <input type="file" id="foto-upload" name="foto" accept="image/*" style="display: none;" onchange="this.form.submit()">
+                    <input type="file" id="foto-upload" name="foto" accept="image/png,image/jpeg,image/gif,image/webp" style="display: none;" data-enviar-ao-escolher>
                 </form>                
             </div>
             <div class="user-info">
                 <h2>{{ usuario.Nome_usuario }} <span class="perfil">({{ usuario.Perfil_usuario | capitalize }})</span></h2>
             </div>
-            <a href="{{ url_for('logout') }}" class="btn-logout"><strong>Sair</strong></a>
+            <form method="POST" action="{{ url_for('logout') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn-logout"><strong>Sair</strong></button>
+            </form>
         </div>
 
         <!-- Conteúdo principal -->
@@ -49,7 +53,9 @@
                 {% if usuario.Perfil_usuario == 'admin' %}
                     <a href="{{ url_for('cadastrar_usuario') }}" class="btn btn-admin">👤 Cadastrar Usuário</a>
                 {% endif %}
-                <a href="{{ url_for('cadastrar_produto') }}" class="btn btn-admin">📦 Cadastrar Produto</a>
+                {% if usuario.is_admin %}
+                    <a href="{{ url_for('cadastrar_produto') }}" class="btn btn-admin">📦 Cadastrar Produto</a>
+                {% endif %}
                 <a href="{{ url_for('movimentar_estoque') }}" class="btn btn-admin">🔁 Movimentar Estoque</a>
                 <a href="{{ url_for('painel_estoque') }}" class="btn btn-admin">📊 Painel de Estoque</a>
             </div>
@@ -77,8 +83,16 @@
                             <td>{{ produto.Quantidade_produto }}</td>
                             <td>{{ produto.Minimo_produto }}</td>
                             <td>
-                                <a href="{{ url_for('editar_produto', produto_id=produto.id_produto) }}" class="btn-editar">Editar</a>
-                                <a href="{{ url_for('excluir_produto', produto_id=produto.id_produto) }}" class="btn-excluir">Excluir</a>
+                                {% if usuario.is_admin %}
+                                    <a href="{{ url_for('editar_produto', produto_id=produto.id_produto) }}" class="btn-editar">Editar</a>
+                                    <form method="POST" action="{{ url_for('excluir_produto', produto_id=produto.id_produto) }}" style="display:inline"
+                                          data-confirmar="Excluir o produto &quot;{{ produto.Nome_produto }}&quot;?">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button type="submit" class="btn-excluir">Excluir</button>
+                                    </form>
+                                {% else %}
+                                    <span>-</span>
+                                {% endif %}
                             </td>
                         </tr>
                     {% else %}
@@ -96,12 +110,6 @@
         </div>
     </div>
 
-    <!-- Script para ocultar flash messages -->
-    <script>
-        setTimeout(() => {
-            const flash = document.querySelector(".flashes");
-            if (flash) flash.style.display = "none";
-        }, 4000);
-    </script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>

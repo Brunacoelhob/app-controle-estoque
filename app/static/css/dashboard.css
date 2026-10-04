@@ -275,3 +275,12 @@ body {
         font-size: 0.9em;
     }
 }
+
+/* Botões que substituem links (ações que alteram dados usam POST) */
+button.btn-excluir,
+button.btn-logout {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+}

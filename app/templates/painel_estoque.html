@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel de Estoque</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/painel_estoque.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="painel-container">
+        <h1 class="titulo">Painel Gerencial de Estoque</h1>
+
+        <!-- Indicadores calculados a partir do banco de dados -->
+        <div class="painel-grid">
+            <div class="info-box">Produtos cadastrados<br><span>{{ dados.resumo.produtos }}</span></div>
+            <div class="info-box">Unidades em estoque<br><span>{{ dados.resumo.unidades }}</span></div>
+            <div class="info-box">Abaixo do mínimo<br><span>{{ dados.resumo.abaixo_do_minimo }}</span></div>
+            <div class="info-box">Saídas (últimos {{ dados.resumo.dias }} dias)<br><span>{{ dados.resumo.saidas_periodo }}</span></div>
+        </div>
+
+        <div class="graficos-grid">
+            <div class="grafico">
+                <h3>Estoque atual x mínimo</h3>
+                <canvas id="graficoEstoque" aria-label="Estoque atual comparado ao mínimo, por produto" role="img"></canvas>
+            </div>
+            <div class="grafico">
+                <h3>Produtos em falta (unidades faltando)</h3>
+                <canvas id="graficoFaltantes" aria-label="Unidades faltando por produto abaixo do mínimo" role="img"></canvas>
+            </div>
+            <div class="grafico">
+                <h3>Entradas e saídas por dia</h3>
+                <canvas id="graficoMovimentacao" aria-label="Entradas e saídas por dia" role="img"></canvas>
+            </div>
+        </div>
+
+        <div class="grafico-colaboradores">
+            <h2>Movimentações por usuário (últimos {{ dados.resumo.dias }} dias)</h2>
+            <table class="tabela">
+                <thead>
+                    <tr><th>Usuário</th><th>Unidades movimentadas</th></tr>
+                </thead>
+                <tbody>
+                    {% for i in range(dados.por_usuario.rotulos | length) %}
+                        <tr><td>{{ dados.por_usuario.rotulos[i] }}</td><td>{{ dados.por_usuario.unidades[i] }}</td></tr>
+                    {% else %}
+                        <tr><td colspan="2">Nenhuma movimentação no período.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="grafico">
+                <canvas id="graficoUsuarios" aria-label="Unidades movimentadas por usuário" role="img"></canvas>
+            </div>
+        </div>
+
+        <div class="voltar">
+            <a href="{{ url_for('dashboard') }}" class="btn-voltar">↩ Voltar</a>
+        </div>
+    </div>
+
+    <!-- Dados para os gráficos (JSON inerte: não é executado, então vale com CSP restritiva) -->
+    <script id="dados-painel" type="application/json">{{ dados | tojson }}</script>
+    <script src="{{ url_for('static', filename='js/painel_estoque.js') }}"></script>
+</body>
+</html>
